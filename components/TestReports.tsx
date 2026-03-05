@@ -2,14 +2,32 @@
 import React from 'react';
 import { FileText, ExternalLink, Bug } from 'lucide-react';
 
+export interface TestCase {
+  id: string;
+  title: string;
+  steps?: string;
+  testData?: string;
+  priority: string;
+  status: string;
+  result: string;
+}
+
+export interface BugItem {
+  id: string;
+  type: string;
+  severity: string;
+  status: string;
+  desc: string;
+}
+
 export interface ProjectData {
   title: string;
   type: string;
   date: string;
   status: string;
   summary: string;
-  bugReport: { id: string; type: string; severity: string; status: string; desc: string }[];
-  testCases: { id: string; title: string; priority: string; status: string; result: string }[];
+  bugReport: BugItem[];
+  testCases: TestCase[];
   tags: string[];
 }
 
@@ -81,11 +99,41 @@ const projects: ProjectData[] = [
       { id: "BUG-009", type: "UI", severity: "Medium", status: "Open", desc: "Show password button disappears when validation errors appear on password fields" },
     ],
     testCases: [
-      { id: "TC-01", title: "Date of Birth dropdown UI check", priority: "Medium", status: "Fail", result: "☐ symbols not clearly interactive — no dropdown arrows or 'Select...' text" },
-      { id: "TC-02", title: "Newsletter checkbox label clarity", priority: "High", status: "Fail", result: "'Newsletter Password*' appears as a single confusing label" },
-      { id: "TC-03", title: "Phone format validation", priority: "Medium", status: "Fail", result: "Accepts letters and short numbers — no format/length validation" },
-      { id: "TC-04", title: "Show/Hide password icon in error state", priority: "High", status: "Fail", result: "Show/hide icon disappears when validation error is triggered" },
-      { id: "TC-05", title: "First Name error message", priority: "Medium", status: "Fail", result: "Shows 'Name is required.' instead of 'First name is required.'" },
+      { id: "TC_01", title: "Phone Empty Test", steps: "1. Leave Phone field empty\n2. Fill all other fields\n3. Click REGISTER", testData: "Phone: [EMPTY]", priority: "High", status: "Pass", result: 'Error message: "Phone is required"' },
+      { id: "TC_02", title: "First Name Empty", steps: "1. Leave First Name field empty\n2. Fill all other fields\n3. Click REGISTER", testData: "First Name: [EMPTY]", priority: "High", status: "Pass", result: 'Error message: "First Name is required"' },
+      { id: "TC_03", title: "Last Name Empty", steps: "1. Leave Last Name field empty\n2. Fill all other fields\n3. Click REGISTER", testData: "Last Name: [EMPTY]", priority: "High", status: "Pass", result: 'Error message: "Last Name is required"' },
+      { id: "TC_04", title: "Password Empty", steps: "1. Leave Password field empty\n2. Fill all other fields\n3. Click REGISTER", testData: "Password: [EMPTY]", priority: "High", status: "Pass", result: 'Error message: "Password is required"' },
+      { id: "TC_05", title: "Confirm Password Empty", steps: "1. Leave Confirm Password field empty\n2. Fill all other fields\n3. Click REGISTER", testData: "Confirm Password: [EMPTY]", priority: "High", status: "Pass", result: 'Error message: "Please confirm password"' },
+      { id: "TC_06", title: "Email Optional Test", steps: "1. Leave Email field empty\n2. Fill all mandatory fields\n3. Click REGISTER", testData: "Email: [EMPTY]", priority: "Medium", status: "Pass", result: "Registration successful" },
+      { id: "TC_07", title: "Gender Not Selected", steps: "1. Don't select any gender\n2. Fill all mandatory fields\n3. Click REGISTER", testData: "Gender: [NOT SELECTED]", priority: "Medium", status: "Pass", result: "Registration successful" },
+      { id: "TC_08", title: "Date of Birth Empty", steps: "1. Don't select any date\n2. Fill all mandatory fields\n3. Click REGISTER", testData: "Date of Birth: [EMPTY]", priority: "High", status: "Pass", result: 'Error message: "Date of birth is required"' },
+      { id: "TC_09", title: "Newsletter Unchecked", steps: "1. Leave Newsletter unchecked\n2. Fill all mandatory fields\n3. Click REGISTER", testData: "Newsletter: [UNCHECKED]", priority: "Low", status: "Pass", result: "Registration successful (no subscription)" },
+      { id: "TC_10", title: "Newsletter Checked", steps: "1. Check Newsletter box\n2. Fill all mandatory fields\n3. Click REGISTER", testData: "Newsletter: [CHECKED]", priority: "Low", status: "Pass", result: "Registration successful + subscribed" },
+      { id: "TC_11", title: "Invalid Phone Format", steps: "1. Enter \"abc123\" in Phone field\n2. Fill all other fields\n3. Click REGISTER", testData: "Phone: abc123", priority: "High", status: "Fail", result: 'Expected: "Invalid phone number" — Actual: No format validation' },
+      { id: "TC_12", title: "Short Phone Number", steps: "1. Enter \"12345\" in Phone field\n2. Fill all other fields\n3. Click REGISTER", testData: "Phone: 12345", priority: "High", status: "Fail", result: 'Expected: "Phone number too short" — Actual: No length validation' },
+      { id: "TC_13", title: "Long Phone Number", steps: "1. Enter 16-digit number in Phone field\n2. Fill all other fields\n3. Click REGISTER", testData: "Phone: 1234567890123456", priority: "Medium", status: "Fail", result: 'Expected: "Phone number too long" — Actual: Accepted without error' },
+      { id: "TC_14", title: "Invalid Email Format", steps: "1. Enter \"user.com\" in Email field\n2. Fill all mandatory fields\n3. Click REGISTER", testData: "Email: user.com", priority: "High", status: "Fail", result: 'Expected: "Invalid email format" — Actual: No email validation' },
+      { id: "TC_15", title: "Valid Email Format", steps: "1. Enter \"user@domain.com\" in Email\n2. Fill all mandatory fields\n3. Click REGISTER", testData: "Email: user@domain.com", priority: "Medium", status: "Pass", result: "Registration successful" },
+      { id: "TC_16", title: "Password Mismatch", steps: "1. Enter \"Test123\" in Password\n2. Enter \"Test124\" in Confirm Password\n3. Fill all other fields\n4. Click REGISTER", testData: "Password: Test123, Confirm: Test124", priority: "High", status: "Pass", result: 'Error: "Passwords do not match"' },
+      { id: "TC_17", title: "Weak Password", steps: "1. Enter \"abc\" in Password\n2. Enter \"abc\" in Confirm Password\n3. Fill all other fields\n4. Click REGISTER", testData: "Password: abc", priority: "High", status: "Fail", result: 'Expected: "Password too weak" — Actual: No strength validation' },
+      { id: "TC_18", title: "Strong Password", steps: "1. Enter \"Test@1234\" in Password\n2. Enter \"Test@1234\" in Confirm\n3. Fill all fields\n4. Click REGISTER", testData: "Password: Test@1234", priority: "Medium", status: "Pass", result: "Registration successful" },
+      { id: "TC_19", title: "Duplicate Phone", steps: "1. Enter already registered phone\n2. Fill all other fields\n3. Click REGISTER", testData: "Phone: [REGISTERED NUMBER]", priority: "High", status: "Fail", result: 'Expected: "Phone already registered" — Actual: Not validated' },
+      { id: "TC_20", title: "Duplicate Email", steps: "1. Enter already registered email\n2. Fill all other fields\n3. Click REGISTER", testData: "Email: [REGISTERED EMAIL]", priority: "High", status: "Fail", result: 'Expected: "Email already registered" — Actual: Not validated' },
+      { id: "TC_21", title: "Male Gender Selected", steps: "1. Select Male gender\n2. Fill all mandatory fields\n3. Click REGISTER", testData: "Gender: Male", priority: "Medium", status: "Pass", result: "Registration successful" },
+      { id: "TC_22", title: "Female Gender Selected", steps: "1. Select Female gender\n2. Fill all mandatory fields\n3. Click REGISTER", testData: "Gender: Female", priority: "Medium", status: "Pass", result: "Registration successful" },
+      { id: "TC_23", title: "Valid Date of Birth", steps: "1. Select Day=15, Month=June, Year=1990\n2. Fill all mandatory fields\n3. Click REGISTER", testData: "DOB: 15/06/1990", priority: "Medium", status: "Pass", result: "Registration successful" },
+      { id: "TC_24", title: "Future Date of Birth", steps: "1. Select future date (2025)\n2. Fill all mandatory fields\n3. Click REGISTER", testData: "DOB: 01/01/2025", priority: "High", status: "Pass", result: 'Error: "Invalid date of birth"' },
+      { id: "TC_25", title: "Under 18 Years", steps: "1. Select date making age under 13\n2. Fill all mandatory fields\n3. Click REGISTER", testData: "DOB: 01/01/2015", priority: "High", status: "Pass", result: 'Error: "You have to be 13"' },
+      { id: "TC_26", title: "Special Characters in Name", steps: "1. Enter \"John@123\" in First Name\n2. Fill all other fields\n3. Click REGISTER", testData: "First Name: John@123", priority: "Medium", status: "Fail", result: "No validation — special characters accepted" },
+      { id: "TC_27", title: "Long First Name", steps: "1. Enter 50+ characters in First Name\n2. Fill all other fields\n3. Click REGISTER", testData: "First Name: [50+ CHARACTERS]", priority: "Low", status: "Fail", result: "No length limit enforced" },
+      { id: "TC_28", title: "Show Password Toggle", steps: "1. Enter password\n2. Click show password icon\n3. Observe password field", testData: "Password: Test123", priority: "Medium", status: "Fail", result: "Icon disappears in error state — bug confirmed (BUG-009)" },
+      { id: "TC_29", title: "Hide Password Toggle", steps: "1. Show password\n2. Click hide password icon\n3. Observe field", testData: "Password: Test123", priority: "Medium", status: "Fail", result: "Icon disappears in error state — bug confirmed (BUG-009)" },
+      { id: "TC_30", title: "Tab Navigation", steps: "1. Press Tab key repeatedly\n2. Observe focus movement through all fields", testData: "Keyboard: Tab key", priority: "Low", status: "Fail", result: "Focus order incorrect: Phone → Email → Gender → Names → DOB → Newsletter → Password" },
+      { id: "TC_31", title: "Valid Registration All Fields", steps: "1. Fill all fields with valid data\n2. Click REGISTER", testData: "Phone: 01404183386, Email: robiurhimel@email.com, Gender: Male, First Name: Robiur Bahar, Last Name: Himel, DOB: 30/11/2005, Newsletter: Checked, Password: Himel5784", priority: "High", status: "Pass", result: "Registration successful + redirect to dashboard" },
+      { id: "TC_32", title: "Clear Form on Refresh", steps: "1. Fill some fields\n2. Refresh the page\n3. Check form fields", testData: "All fields filled", priority: "Low", status: "Pass", result: "All fields cleared after refresh" },
+      { id: "TC_33", title: "Enter Key Submission", steps: "1. Fill all fields\n2. Press Enter key", testData: "Keyboard: Enter key", priority: "Medium", status: "Fail", result: "Form did not submit on Enter key press" },
+      { id: "TC_34", title: "Cancel / Browser Back", steps: "1. Fill some fields\n2. Click browser back button\n3. Check if warning appears", testData: "Browser: Back button", priority: "Low", status: "Fail", result: "No warning shown — data lost without notification" },
+      { id: "TC_35", title: "Mobile Responsive Check", steps: "1. Open page on mobile device\n2. Check all elements visibility", testData: "Device: Mobile", priority: "High", status: "Pass", result: "All elements visible and usable on mobile" },
     ],
     tags: ["UI Testing", "Validation", "Registration", "Cross-Browser"]
   }
