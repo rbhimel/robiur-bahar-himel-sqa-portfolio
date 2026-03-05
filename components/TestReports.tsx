@@ -62,6 +62,32 @@ const projects: ProjectData[] = [
       { id: "TC-21", title: "Forgot Password Link", priority: "High", status: "Pass", result: "Email sent within 10s" }
     ],
     tags: ["Auth", "Security", "Design"]
+  },
+  {
+    title: "Bug Report of otoba.com",
+    type: "Registration Page Audit",
+    date: "2026",
+    status: "OPEN",
+    summary: "Detailed manual testing of the otoba.com user registration page, uncovering UI clarity issues, validation gaps, and UX inconsistencies across all major browsers and devices.",
+    bugReport: [
+      { id: "BUG-001", type: "UI", severity: "Medium", status: "Open", desc: "Date of birth selector UI is unclear — ☐ symbols not clearly interactive" },
+      { id: "BUG-002", type: "UI", severity: "Medium", status: "Open", desc: "Newsletter checkbox placement confusing — 'Newsletter Password*' appears as one label" },
+      { id: "BUG-003", type: "UX", severity: "Medium", status: "Open", desc: "Gender field lacks inclusive options — only Male and Female available" },
+      { id: "BUG-004", type: "Validation", severity: "Medium", status: "Open", desc: "Phone validation missing format/length checks — accepts any non-empty input" },
+      { id: "BUG-005", type: "UI", severity: "Low", status: "Open", desc: "Inconsistent capitalization in password labels and error messages" },
+      { id: "BUG-006", type: "UI", severity: "Low", status: "Open", desc: "Date of birth field missing required '*' indicator unlike other required fields" },
+      { id: "BUG-007", type: "Validation", severity: "Medium", status: "Open", desc: "Incorrect error message — First Name shows generic 'Name is required.' instead of 'First name is required.'" },
+      { id: "BUG-008", type: "Validation", severity: "Low", status: "Open", desc: "Ambiguous error message — 'Phone is required.' should say 'Phone number is required.'" },
+      { id: "BUG-009", type: "UI", severity: "Medium", status: "Open", desc: "Show password button disappears when validation errors appear on password fields" },
+    ],
+    testCases: [
+      { id: "TC-01", title: "Date of Birth dropdown UI check", priority: "Medium", status: "Fail", result: "☐ symbols not clearly interactive — no dropdown arrows or 'Select...' text" },
+      { id: "TC-02", title: "Newsletter checkbox label clarity", priority: "High", status: "Fail", result: "'Newsletter Password*' appears as a single confusing label" },
+      { id: "TC-03", title: "Phone format validation", priority: "Medium", status: "Fail", result: "Accepts letters and short numbers — no format/length validation" },
+      { id: "TC-04", title: "Show/Hide password icon in error state", priority: "High", status: "Fail", result: "Show/hide icon disappears when validation error is triggered" },
+      { id: "TC-05", title: "First Name error message", priority: "Medium", status: "Fail", result: "Shows 'Name is required.' instead of 'First name is required.'" },
+    ],
+    tags: ["UI Testing", "Validation", "Registration", "Cross-Browser"]
   }
 ];
 
@@ -92,7 +118,7 @@ const TestReports: React.FC<TestReportsProps> = ({ onOpenAudit }) => {
               </div>
               <FileText className="text-neutral-300 dark:text-white/20 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" />
             </div>
-            
+
             <div className="p-8 space-y-6 flex-1 bg-white/30 dark:bg-transparent">
               <p className="text-sm text-neutral-600 dark:text-white/60 leading-relaxed italic border-l-2 border-indigo-500/50 pl-4">
                 "{project.summary}"
@@ -112,7 +138,7 @@ const TestReports: React.FC<TestReportsProps> = ({ onOpenAudit }) => {
               </div>
             </div>
 
-            <button 
+            <button
               onClick={() => onOpenAudit(project)}
               className="p-6 bg-indigo-600/5 dark:bg-indigo-600/10 hover:bg-indigo-600/10 dark:hover:bg-indigo-600/20 transition-colors flex items-center justify-center gap-2 cursor-pointer w-full group/btn"
             >
