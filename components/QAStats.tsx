@@ -48,9 +48,15 @@ const QAStats: React.FC = () => {
             <YAxis hide />
             <Tooltip
               cursor={{ fill: 'rgba(0,0,0,0.02)', className: 'dark:fill-white/5' }}
-              contentStyle={{ background: 'var(--tw-bg-opacity)', backgroundColor: 'white', color: '#000', border: '1px solid #e5e7eb', borderRadius: '12px' }}
-              itemStyle={{ color: '#000' }}
-              wrapperClassName="dark:!bg-black dark:!border-white/20"
+              contentStyle={{
+                background: 'var(--tw-bg-opacity)',
+                backgroundColor: 'currentColor',
+                border: '1px solid #e5e7eb',
+                borderRadius: '12px'
+              }}
+              itemStyle={{ color: 'inherit' }}
+              labelStyle={{ color: 'inherit', fontWeight: 'bold', marginBottom: '4px' }}
+              wrapperClassName="bg-white text-neutral-900 dark:!bg-black dark:text-white dark:!border-white/20 shadow-xl"
             />
             <Bar dataKey="val" radius={[10, 10, 0, 0]} barSize={60}>
               {data.map((entry, index) => (
