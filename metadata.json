@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Robiur Bahar Himel - SQA Portfolio",
+  "description": "A high-performance, futuristic portfolio for a Junior SQA Engineer featuring interactive bug tracking elements, Bento grid design, and AI-powered QA insights.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
