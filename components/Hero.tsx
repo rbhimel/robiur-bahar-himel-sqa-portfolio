@@ -2,11 +2,7 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Linkedin, Github, CheckCircle2, User, ShieldCheck } from 'lucide-react';
 
-interface HeroProps {
-  onDownloadCV: () => void;
-}
-
-const Hero: React.FC<HeroProps> = ({ onDownloadCV }) => {
+const Hero: React.FC = () => {
   const [imageError, setImageError] = useState(false);
 
   return (
@@ -17,14 +13,14 @@ const Hero: React.FC<HeroProps> = ({ onDownloadCV }) => {
             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
             RB Himel | SQA Diagnostic Active
           </div>
-          
+
           <h1 className="text-6xl md:text-8xl font-display font-bold leading-tight text-neutral-900 dark:text-white">
             Perfecting <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400">
               Software Quality.
             </span>
           </h1>
-          
+
           <p className="text-xl text-neutral-600 dark:text-white/50 max-w-lg leading-relaxed mx-auto lg:mx-0">
             I'm <span className="text-neutral-900 dark:text-white font-semibold">Robiur Bahar Himel</span>, a Junior SQA Engineer dedicated to identifying edge-case bugs and ensuring 100% defect-free deployments through rigorous manual validation.
           </p>
@@ -50,12 +46,14 @@ const Hero: React.FC<HeroProps> = ({ onDownloadCV }) => {
                 <Github className="group-hover:scale-110 transition-transform text-neutral-700 dark:text-white" />
               </a>
             </div>
-            <button 
-              onClick={onDownloadCV}
+            <a
+              href="/robiur-bahar-himel-sqa-portfolio/Robiur_Bahar_Himel_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex-1 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl font-bold text-lg text-white hover:shadow-[0_0_30px_rgba(79,70,229,0.3)] dark:hover:shadow-[0_0_30px_rgba(79,70,229,0.4)] transition-all flex items-center justify-center gap-3 active:scale-[0.98]"
             >
               <CheckCircle2 /> Download SQA Audit (CV)
-            </button>
+            </a>
           </div>
         </div>
 
@@ -63,9 +61,9 @@ const Hero: React.FC<HeroProps> = ({ onDownloadCV }) => {
           <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-[40px] blur-2xl opacity-10 dark:opacity-20 group-hover:opacity-30 transition-opacity duration-500" />
           <div className="relative glass-card border-neutral-200 dark:border-white/10 overflow-hidden aspect-square rounded-[32px] bg-white dark:bg-[#05001a] shadow-2xl flex items-center justify-center">
             {!imageError ? (
-              <img 
-                src="https://media.licdn.com/dms/image/v2/D4D03AQH5PVLi9Ltojg/profile-displayphoto-scale_200_200/B4DZwkcTX3G4AY-/0/1770137928860?e=1774483200&v=beta&t=Yo3IuoAUhtnbIZBOEjMSPFajtWvA6XWkVZ-xfgTnikk" 
-                alt="Robiur Bahar Himel" 
+              <img
+                src="https://media.licdn.com/dms/image/v2/D4D03AQH5PVLi9Ltojg/profile-displayphoto-scale_200_200/B4DZwkcTX3G4AY-/0/1770137928860?e=1774483200&v=beta&t=Yo3IuoAUhtnbIZBOEjMSPFajtWvA6XWkVZ-xfgTnikk"
+                alt="Robiur Bahar Himel"
                 onError={() => setImageError(true)}
                 className="w-full h-full object-cover grayscale brightness-100 dark:brightness-90 group-hover:grayscale-0 transition-all duration-700 hover:scale-105"
               />
@@ -82,9 +80,9 @@ const Hero: React.FC<HeroProps> = ({ onDownloadCV }) => {
             )}
             {/* HUD Overlay */}
             <div className="absolute inset-0 pointer-events-none border-[1px] border-white/5 rounded-[32px] overflow-hidden">
-               <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-indigo-500/30 m-4 rounded-tl-xl" />
-               <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-purple-500/30 m-4 rounded-br-xl" />
-               <div className="absolute top-4 right-4 text-[10px] font-mono text-indigo-500/40 uppercase tracking-[0.2em] animate-pulse">Scanning Bio...</div>
+              <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-indigo-500/30 m-4 rounded-tl-xl" />
+              <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-purple-500/30 m-4 rounded-br-xl" />
+              <div className="absolute top-4 right-4 text-[10px] font-mono text-indigo-500/40 uppercase tracking-[0.2em] animate-pulse">Scanning Bio...</div>
             </div>
           </div>
         </div>
