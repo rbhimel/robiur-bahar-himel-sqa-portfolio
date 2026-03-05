@@ -35,10 +35,18 @@ const QAStats: React.FC = () => {
 
       <div className="glass-card p-10 h-[400px] border-neutral-200 dark:border-white/5 bg-white/40 dark:bg-black/20 shadow-sm dark:shadow-none">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-            <XAxis dataKey="name" stroke="currentColor" className="text-neutral-400 dark:text-white/40" axisLine={false} tickLine={false} />
+          <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 25 }}>
+            <XAxis
+              dataKey="name"
+              stroke="currentColor"
+              className="text-neutral-400 dark:text-white/40"
+              axisLine={false}
+              tickLine={false}
+              interval={0}
+              tick={{ fontSize: 12, transform: 'translate(0, 5)' }}
+            />
             <YAxis hide />
-            <Tooltip 
+            <Tooltip
               cursor={{ fill: 'rgba(0,0,0,0.02)', className: 'dark:fill-white/5' }}
               contentStyle={{ background: 'var(--tw-bg-opacity)', backgroundColor: 'white', color: '#000', border: '1px solid #e5e7eb', borderRadius: '12px' }}
               itemStyle={{ color: '#000' }}
